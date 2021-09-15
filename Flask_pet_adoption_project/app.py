@@ -6,7 +6,7 @@ from forms import AddPetForm
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://adopt_db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///adopt_db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = "SuPpOrT_yOuR_lOcAl_ShElTeR"
@@ -19,4 +19,4 @@ db.create_all()
 
 # @app.route('/')
 # def homepage():
-#     form = 
+#     pet = Pet.query.all()
