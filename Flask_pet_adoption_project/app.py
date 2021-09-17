@@ -35,13 +35,13 @@ def add_pet():  # sourcery skip: remove-unnecessary-else, swap-if-else-branches
         notes = form.notes.data
 
         new_pet = Pet(name=name, species=species, photo_url=photo_url, age=age, notes=notes)
-        db.session(new_pet)
+        db.session.add(new_pet)
         db.session.commit()
         flash(f"{new_pet.name} added")
-        return redirect("/add")
+        return redirect("/")
     
-    else:
-        return render_template("pet_add_form.html", form=form)
+    # else:
+    #     return render_template("pet_add_form.html", form=form)
 
 
 @app.route("/<int:pet_id>", methods=["GET, POST"])
@@ -60,7 +60,7 @@ def edit_pet(pet_id):
         
         db.session.commit()
         flash(f"{pet_id} successfully updated")
-        return redirect("/")
+        return redirect(f"/{pet_id}")
     
     else:
         return render_template("edit_pet.html", pet=pet, form=form)

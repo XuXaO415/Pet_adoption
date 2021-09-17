@@ -7,12 +7,14 @@
     {% for field in form if fields.widget.input_type != 'hidden' %}
     <p>
         {{field.label}}
-        {{field(class_="")}}
+        {{field(class_="form-control")}}
         {% for err in field.errors %}
         {{err}}
     </p>
-</form>
+
     {% endfor %}
+    {% endif %}
     <button type="submit" btn btn-success>Add</button>
     <a href="/" class="btn btn-danger">Back to Homepage</a>
+    </form>
 {% endblock %}
