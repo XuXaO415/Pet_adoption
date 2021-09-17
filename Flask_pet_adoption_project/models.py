@@ -1,3 +1,4 @@
+from os import name
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -22,5 +23,14 @@ class Pet(db.Model):
     notes = db.Column(db.Text)
     available = db.Column(db.Boolean, nullable=False, default=True)
     
-    # def __repr__(self):
-    #     return f"<Pet{self.name} {self.species} {self.photo_url} {self.age} {self.notes} {self.available}>"
+    def __repr__(self):
+        return f"<Pet{self.name} {self.species} {self.photo_url} {self.age} {self.notes} {self.available}>"
+
+# def __init__(self, name, species, photo_url, age, notes, available):
+#     self.name = name
+#     self.species = species
+#     self.photo_url = photo_url
+#     self.age = age
+#     self.notes = notes
+#     self.available = available
+    

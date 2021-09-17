@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Pet
-from forms import AddPetForm, EditPetForm
+from forms import AddPetForm, EditPetForm 
 import pdb
 
 
@@ -28,7 +28,7 @@ def list_pets():
 @app.route("/add", methods=["GET", "POST"])
 def add_pet():  # sourcery skip: remove-unnecessary-else, swap-if-else-branches
     """Add pet; handle form"""
-    pdb.set_trace()
+   
     form = AddPetForm()
     if form.validate_on_submit():
         name = form.name.data
@@ -38,18 +38,18 @@ def add_pet():  # sourcery skip: remove-unnecessary-else, swap-if-else-branches
         notes = form.notes.data
        
 
-        pet = Pet(name=name, species=species, photo_url=photo_url, age=age, notes=notes)
-        db.session.add(pet)
+        new_pet = Pet(name=name, species=species, photo_url=photo_url, age=age, notes=notes)
+        db.session.add(new_pet)
         db.session.commit()
+        # pdb.set_trace()
    
-        # flash(f"{pet.name} added")
-        # return redirect(url_for("list_pets"))
-    
-    # else:
+        flash(f" {new_pet.name} added")
+        return redirect("/add")
+    else:
         return render_template("pet_add_form.html", form=form)
 
 
-@app.route("/<int:pet_id>", methods=["GET, POST"])
+@app.route("/pets/<int:pet_id>/edit", methods=["GET, POST"])
 def edit_pet(pet_id):
     """Edit pet form and handle edit"""
     pet = Pet.query.get_or_404(pet_id)
@@ -63,15 +63,17 @@ def edit_pet(pet_id):
         pet.notes = form.notes.data 
         pet.available = form.available.data
         
+        # pdb.set_trace()
+        
         db.session.commit()
         # flash(f"{pet_id} successfully updated")
-        # return redirect(f"/{pet_id}")
+        return redirect("/")
     
-    # else:
+    else:
         return render_template("edit_pet.html", pet=pet, form=form)
         
         
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)

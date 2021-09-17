@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, FloatField, BooleanField, IntegerField, RadioField, SelectField
-from wtforms.validators import InputRequired, Optional, URL, Optional, NumberRange, Length
+from wtforms import (BooleanField, FloatField, IntegerField, RadioField,
+                     SelectField, StringField)
+from wtforms.validators import (URL, InputRequired, Length, NumberRange,
+                                Optional)
 
 
 class AddPetForm(FlaskForm):
