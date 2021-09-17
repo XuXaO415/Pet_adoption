@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}{% endblock%}
+{% block title %}Add a Pet{% endblock%}
 {%block content %}
 <h1>Add a pet</h1>
 <form method="POST">
@@ -7,8 +7,11 @@
     {% for field in form if fields.widget.input_type != 'hidden' %}
     <p>
         {{field.label}}
-        {{field}}
+        {{field(class_="")}}
+        {% for err in field.errors %}
+        {{err}}
     </p>
+</form>
     {% endfor %}
     <button type="submit" btn btn-success>Add</button>
     <a href="/" class="btn btn-danger">Back to Homepage</a>
