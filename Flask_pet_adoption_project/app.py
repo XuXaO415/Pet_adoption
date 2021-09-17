@@ -59,7 +59,7 @@ def edit_pet(pet_id):
         pet.available = form.available.data
         
         db.session.commit()
-        flash(f"{pet.name} successfully updated")
+        flash(f"{pet_id} successfully updated")
         return redirect("/")
     
     else:
