@@ -1,7 +1,9 @@
 from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Pet
-from forms import AddPetForm
+from forms import AddPetForm, EditPetForm
+import pdb
+
 
 app = Flask(__name__)
 
@@ -26,6 +28,7 @@ def list_pets():
 @app.route("/add", methods=["GET", "POST"])
 def add_pet():  # sourcery skip: remove-unnecessary-else, swap-if-else-branches
     """Add pet; handle form"""
+    pdb.set_trace()
     form = AddPetForm()
     if form.validate_on_submit():
         name = form.name.data
@@ -33,22 +36,24 @@ def add_pet():  # sourcery skip: remove-unnecessary-else, swap-if-else-branches
         photo_url = form.photo_url.data
         age = form.age.data
         notes = form.notes.data
+       
 
-        new_pet = Pet(name=name, species=species, photo_url=photo_url, age=age, notes=notes)
-        db.session.add(new_pet)
+        pet = Pet(name=name, species=species, photo_url=photo_url, age=age, notes=notes)
+        db.session.add(pet)
         db.session.commit()
-        flash(f"{new_pet.name} added")
-        return redirect("/")
+   
+        # flash(f"{pet.name} added")
+        # return redirect(url_for("list_pets"))
     
     # else:
-    #     return render_template("pet_add_form.html", form=form)
+        return render_template("pet_add_form.html", form=form)
 
 
 @app.route("/<int:pet_id>", methods=["GET, POST"])
 def edit_pet(pet_id):
     """Edit pet form and handle edit"""
     pet = Pet.query.get_or_404(pet_id)
-    form = AddPetForm(obj=pet)
+    form = EditPetForm(obj=pet)
     
     if form.validate_on_submit():
         pet.name = form.name.data 
@@ -59,14 +64,14 @@ def edit_pet(pet_id):
         pet.available = form.available.data
         
         db.session.commit()
-        flash(f"{pet_id} successfully updated")
-        return redirect(f"/{pet_id}")
+        # flash(f"{pet_id} successfully updated")
+        # return redirect(f"/{pet_id}")
     
-    else:
+    # else:
         return render_template("edit_pet.html", pet=pet, form=form)
         
         
 
 
-# if __name__ == "__main__":
-#     app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)

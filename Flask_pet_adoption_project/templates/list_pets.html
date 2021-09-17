@@ -1,10 +1,24 @@
+<!-- From solutions -->
 {% extends 'base.html' %}
-{% block title %}Available Pets{% endblock%}
-{% block content %}
-<h1>Pets</h1>
-<!-- <a href="/add"  -->
-{% for pet in pets %}
-{% endfor %}
-{% endblock %}
 
+{% block content %}
+
+<h1>Our Pets</h1>
+
+<div class="row pets-listing">
+
+  {% for pet in pets %}
+  <div class="col-3">
+    <img class="img-thumbnail" src="{{ pet.photo_url() }}">
+    <a href="{{ 'edit_pet.html', pet.id}}">{{ pet.name }}</a>
+    {% if pet.available %} <b> is available!</b> {% endif %}
+  </div>
+  {% else %}
+  <div class="col-12">No pets yet.</div>
+  {% endfor %}
+
+</div>
+
+<a class="btn btn-primary" href="{{url_for('add_pet')}}">Add a Pet</a>
+{% endblock %}
 
