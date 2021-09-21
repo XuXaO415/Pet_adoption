@@ -48,9 +48,11 @@ def single_cupcake(cupcake_id):
     """Gather data on single cupcake"""
     
     cupcake = Cupcake.query.get_or_404(cupcake_id)
-    serialized = serialize_cupcake(cupcake=cupcake)
+    serialized = serialize_cupcake(cupcake)
     
-    return (jsonify(cupcake=serialized), 404)
+    #Removed 404 because it caused tests to fail
+    # return (jsonify(cupcake=serialized), 404)
+    return (jsonify(cupcake=serialized))
 
     
 @app.route("/api/cupcakes", methods=["POST"])
@@ -76,12 +78,19 @@ def custom_cupcake():
 #############################################################
 #Part three: Update a& Delete Cupcakes
 
-# @app.route("/api/cupcakes/<int:cupcake_id>", methods=["PATCH"])
-# def update_cupcake():
-#     """Update cupcake"""
+@app.route("/api/cupcakes/<int:cupcake_id>", methods=["PATCH"])
+def update_cupcake(cupcake_id):
+    """Update cupcake
+    Returns JSON like this: {cupcake: {id, flavor, size, rating, image}}
+    """
+    cupcake = Cupcake.query.get_or_404(cupcake_id)
+    
+    flavor = request.
+    
     
 
 # @app.route("/api/cupcakes/<int:cupcake_id>", methods=["DELETE"])
 # def delete_cupcake():
-#     """"Delete cupcake or raise 404 if cupcake is not found"""
+#     """"Delete cupcake or raise 404 if cupcake is not found
+#  Returns JSON like this: {message: "Deleted"}"""
     
