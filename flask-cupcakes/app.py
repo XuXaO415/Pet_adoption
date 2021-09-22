@@ -62,7 +62,9 @@ def custom_cupcake():
     """Customize cupcake. 
     Returns JSON {'cupcake': {id, flavor, size, rating, image}}
     """
-  
+
+
+    # pdb.set_trace()
     flavor = request.json["flavor"]
     size = request.json["size"]
     rating = request.json["rating"]
@@ -107,7 +109,7 @@ def update_cupcake(cupcake_id):
     cupcake.rating = request.json["rating"]
     cupcake.image = request["image"]
     
-    pdb.set_trace()
+    # pdb.set_trace()
     
     new_cupcake = Cupcake(flavor=cupcake.flavor, size=cupcake.size, rating=cupcake.rating, image=cupcake.image)
     db.session.add(new_cupcake)
